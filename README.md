@@ -79,7 +79,8 @@ void setup()
   
   WifiLoader::initWifi("Hello QuickHub IoT", "");
   
-  // connect to the address that was received within the WifiManager
+  // Connect to the address that was received within the WifiManager
+  // You only have to provide the ports for ws and wss 
   connectionWrapper.autoConnect(4711,4711);
 }
 

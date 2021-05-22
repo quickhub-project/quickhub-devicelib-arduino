@@ -89,3 +89,9 @@ void loop() {
   Connection::loop();
 }
 ```
+
+## Device Setup
+
+If the device cannot connect to a WiFi, it will open a WiFi accesspoint with the apropriate SSID (line 70 in the example). Open your browser and try to browse a random URL. You should be redirected to the setup page.
+
+

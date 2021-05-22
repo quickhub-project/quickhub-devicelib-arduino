@@ -60,13 +60,13 @@ void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
   
-  // setup the websocket connection
+  // Setup the websocket connection
   node.setAbstractConnection(&connectionWrapper);
   
-  // register the initPropertiesCallback (this is mandatory!)
+  // Register the initPropertiesCallback (this is mandatory!)
   node.registerInitPropertiesCallback(initProperties);
   
-  // give our device a type description
+  // Give our device a type description
   node.setNodeType("Property example");
   
   // register the property setter
@@ -79,8 +79,8 @@ void setup()
   
   WifiLoader::initWifi("Hello QuickHub IoT", "");
   
-  // Connect to the address that was received within the WifiManager
-  // You only have to provide the ports for ws and wss 
+  // Connect to the address that was received within the WifiManager.
+  // You only have to provide the ports for ws and wss:
   connectionWrapper.autoConnect(4711,4711);
 }
 

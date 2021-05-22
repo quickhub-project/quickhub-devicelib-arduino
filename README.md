@@ -13,7 +13,8 @@ With the help of this library, IoT devices based on the low-cost Espressif micro
 Just add the following lines to your ```platformio.ini```
 
 ```
-lib_deps =  https://github.com/bblanchon/ArduinoJson.git#5.x
+lib_deps =  https://github.com/quickhub-project/quickhub-devicelib-arduino.git
+            https://github.com/bblanchon/ArduinoJson.git#5.x
             https://github.com/tzapu/WiFiManager.git
             549
             

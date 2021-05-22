@@ -8,7 +8,7 @@
 #ifndef ABSTRACT_SLKILL_H
 #define ABSTRACT_SLKILL_H
 
-#include "DeviceNode.h"
+#include "QuickHubDevice.h"
 #include <list>
 
 class AbstractSkill
@@ -28,7 +28,7 @@ public:
   virtual void initProperties(JsonObject& properties) = 0;
   virtual void registerCallbacks() = 0;
 
-  virtual void setDeviceNode(DeviceNode& node)
+  virtual void setDeviceNode(QuickHubDevice& node)
   {
       _node = &node;
       registerCallbacks();
@@ -45,7 +45,7 @@ public:
   }
 
 protected:
-  DeviceNode*    _node = 0;
+  QuickHubDevice*    _node = 0;
   void registerRPC(const char* name, std::function<void(JsonObject&)> func)
   {
     char rpcName[120];

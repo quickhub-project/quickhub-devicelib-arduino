@@ -6,7 +6,7 @@
  * Copyright (C) 2021 by Friedemann Metzger - mail@friedemann-metzger.de */
 
 #include "AbstractSkill.h"
-#include "DeviceNode.h"
+#include "QuickHubDevice.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -16,16 +16,16 @@
 
 #define START_ADDRESS 8
 
-DeviceNode::DeviceNode() : Connection()
+QuickHubDevice::QuickHubDevice() : Connection()
 {
 }
 
-void DeviceNode::setNodeType(const char* nodeType)
+void QuickHubDevice::setNodeType(const char* nodeType)
 {
     _nodeType = nodeType;
 }
 
-void DeviceNode::connected()
+void QuickHubDevice::connected()
 {
   DynamicJsonBuffer jsonBuffer;
   JsonObject& json = jsonBuffer.createObject();
@@ -63,12 +63,12 @@ void DeviceNode::connected()
   send(json);
 }
 
-void DeviceNode::disconnected()
+void QuickHubDevice::disconnected()
 {
   Serial.println("Disconnected.");
 }
 
-void DeviceNode::received(JsonObject& json)
+void QuickHubDevice::received(JsonObject& json)
 {
   const char* command = json["cmd"];
 
@@ -128,7 +128,7 @@ void DeviceNode::received(JsonObject& json)
   }
 }
 
-void DeviceNode::requestSleep()
+void QuickHubDevice::requestSleep()
 {
   _allowDeepSleep = true;
   DynamicJsonBuffer jsonBuffer;
@@ -137,7 +137,7 @@ void DeviceNode::requestSleep()
   send(json);
 }
 
-bool DeviceNode::sendData(const char* subject, JsonObject& data)
+bool QuickHubDevice::sendData(const char* subject, JsonObject& data)
 {
   resetKeepAliveTimer();
   startAckTimer();
@@ -151,7 +151,7 @@ bool DeviceNode::sendData(const char* subject, JsonObject& data)
   return send(json);
 }
 
-bool DeviceNode::sendData(const char* subject)
+bool QuickHubDevice::sendData(const char* subject)
 {
   startAckTimer();
   resetKeepAliveTimer();
@@ -163,49 +163,49 @@ bool DeviceNode::sendData(const char* subject)
   json["params"] = parameters;
   return send(json);
 }
-void DeviceNode::registerInitPropertiesCallback(initCallback cb)
+void QuickHubDevice::registerInitPropertiesCallback(initCallback cb)
 {
   _initPropertiesCallback = cb;
 }
 
-void DeviceNode::registerInitFinishedCallback(initFinishedCallback cb)
+void QuickHubDevice::registerInitFinishedCallback(initFinishedCallback cb)
 {
   _initFinishedCallback = cb;
 }
 
-void DeviceNode::registerRPC(const char* name, std::function<void(JsonObject&)> cb)
+void QuickHubDevice::registerRPC(const char* name, std::function<void(JsonObject&)> cb)
 {
     _rpcCallbacks[name] = cb;
 }
 
-void DeviceNode::registerSkill(AbstractSkill* skill)
+void QuickHubDevice::registerSkill(AbstractSkill* skill)
 {
   //_skills.;
   skill->setDeviceNode(*this);
 }
 
-void DeviceNode::registerSleepCallback(sleepCallback cb)
+void QuickHubDevice::registerSleepCallback(sleepCallback cb)
 {
     _allowDeepSleep = true;
     _sleepCallback = cb;
 }
 
-void DeviceNode::setAllowDeepsleep(bool allowed)
+void QuickHubDevice::setAllowDeepsleep(bool allowed)
 {
     _allowDeepSleep = allowed;
 }
 
-void DeviceNode::callRPC(const char* function, JsonObject& arguments)
+void QuickHubDevice::callRPC(const char* function, JsonObject& arguments)
 {
   _rpcCallbacks[function](arguments);
 }
 
-bool DeviceNode::writeKey(uint32_t key)
+bool QuickHubDevice::writeKey(uint32_t key)
 {
   return DataStorage::saveAuthKey(key);
 }
 
-uint32_t DeviceNode::getKey()
+uint32_t QuickHubDevice::getKey()
 {
   return DataStorage::loadAuthKey();
 }

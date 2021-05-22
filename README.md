@@ -25,12 +25,12 @@ This example implements a readwrite property which allows to switch the internal
 
 ```c
 #include <Arduino.h>
-#include <DeviceNode.h>
+#include <QuickHubDevice.h>
 #include <ArduinoWebsocketsWrapper.h>
 #include <WifiLoader.h>
 
 // Instanciate a QuickHub DeviceNode
-DeviceNode node;
+QuickHubDevice node;
 
 // Instanciate a websocket connection
 ArduinoWebSocketsWrapper connectionWrapper;

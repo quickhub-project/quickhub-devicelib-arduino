@@ -23,7 +23,7 @@ typedef void (*initFinishedCallback) (void);
 typedef void (*sleepCallback) (ulong milliseconds);
 
 
-class DeviceNode : public Connection
+class QuickHubDevice : public Connection
 {
   struct StrCompare : public std::binary_function<const char*, const char*, bool> {
 
@@ -33,7 +33,7 @@ class DeviceNode : public Connection
   };
 
   public:
-    DeviceNode();
+    QuickHubDevice();
 
     /*
       Is used to identify the device type

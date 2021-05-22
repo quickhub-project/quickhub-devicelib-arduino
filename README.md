@@ -5,7 +5,7 @@ With the help of this library, IoT devices based on the low-cost Espressif micro
 ## Dependencies
 
 - ArduinoJson (version 5.x) by Benoît Blanchon https://github.com/bblanchon/ArduinoJson/tree/5.x
-- ArduinoWebsockets by Mathias Sattler https://github.com/Links2004/arduinoWebSockets.git
+- ArduinoWebsockets by Markus Sattler https://github.com/Links2004/arduinoWebSockets.git
 - WifiManager https://github.com/tzapu/WiFiManager.git
 
 ## Setup with PlatformIO
@@ -47,13 +47,13 @@ void initProperties(JsonObject& properties)
 // The property setter 
 void setLedON(JsonObject& properties)
 {
-  // values of property setters are provided with "val" in the received json object
+  // The value to set the property to is provided in "val" in the passed json object.
   bool LED_ON = properties["val"];
   
-  // set the LED
+  // Set the LED
   digitalWrite(LED_BUILTIN, !LED_ON);
   
-  // confirm property change - Each property change needs to be confirmed!
+  // Confirm property change - Each property change needs to be confirmed!
   node.setProperty("on", LED_ON);
 }
 
@@ -70,9 +70,11 @@ void setup()
   // Give our device a type description
   node.setNodeType("Property example");
   
-  // register the property setter
+  // Register the property setter callback
   // The server recognizes a property setter by the fact that it 
-  // has the name of a property with a capital initial letter and the prefix "set".
+  // has the name of a property with a capital initial letter and 
+  // the prefix "set". If the property has the name "on", the appropriate 
+  // setter needs to be registered with "setOn".
   node.registerRPC("setOn", setLedON);
   
   // This will be the SSID of the AccessPoint that the device will open
